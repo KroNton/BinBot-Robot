@@ -1,0 +1,33 @@
+<!--- Depth image to laser scan -->
+<launch>
+  <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan" >
+      <param name="scan_height" value="3"/> 
+      <param name="output_frame_id" value="kinect_link"/>
+      <remap from="image" to="/kinect/kinect/depth/image_raw" />
+      <remap from="scan" to="binbot/scan"/>
+  </node>
+  <!--node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
+      <remap from="cloud_in" to="/kinect/kinect/depth/points"/>
+      <remap from="scan" to="binbot/scan" />
+      <rosparam>
+        target_frame: kinect_link
+        transform_tolerance: 0.01
+        min_height: 0.0
+        max_height: 1.0
+        
+        angle_min: -1.5708
+        angle_max: 1.5708
+        angle_increment: 0.0087
+        scan_time: 0.3333
+        range_min: 0.45
+        range_max: 4.0
+        use_inf: true
+        
+        #concurrency_level affects number of pc queued for processing and the number of threadsused
+        # 0: Detect number of cores
+        # 1: Single threaded
+        # 2: inf : Parallelism level
+        concurrency_level: 1
+      </rosparam>
+    </node-->
+</launch>

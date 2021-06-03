@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<launch>
+
+ <!--- Run Move Base -->
+  <!--include file="$(find binbot)/launch/3dsensor_sim.launch" /-->
+
+  <!-- Run the map server -->
+  <arg name="map_file" default="$(find binbot_navigation)/maps/map.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+  <!--- Run AMCL -->
+  <include file="$(find binbot_navigation)/launch/amcl.launch" />
+
+ 
+  <!--- Run Move Base -->
+  <include file="$(find binbot_navigation)/launch/view_navigation.launch" />
+
+ 
+
+</launch>
