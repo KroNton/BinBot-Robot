@@ -269,7 +269,7 @@
 
   
   <link
-    name="right_wheel">
+    name="rwheel">
     <inertial>
       <origin
         xyz="0 0 0"
@@ -309,7 +309,7 @@
     </collision>
   </link>
   <joint
-    name="right_wheel_joint"
+    name="base_to_rwheel"
     type="continuous">
     <origin
       xyz="-0.005693 -0.21494 -0.25969"
@@ -317,7 +317,7 @@
     <parent
       link="chassis_link" />
     <child
-      link="right_wheel" />
+      link="rwheel" />
     <axis
       xyz="0 0 1" />
   </joint>
@@ -326,7 +326,7 @@
 
 
   <link
-    name="left_wheel">
+    name="lwheel">
    <inertial>
       <origin
         xyz="0 0 0"
@@ -366,7 +366,7 @@
     </collision>
   </link>
   <joint
-    name="left_wheel_joint"
+    name="base_to_lwheel"
     type="continuous">
     <origin
       xyz="-0.005693 0.21506 -0.25969"
@@ -374,7 +374,7 @@
     <parent
       link="chassis_link" />
     <child
-      link="left_wheel" />
+      link="lwheel" />
     <axis
       xyz="0 0 -1" />
   </joint>
@@ -414,7 +414,7 @@
 
 
   <!--kinect_link-->
-  <link name="kinect_link">
+  <link name="camera_link">
       <inertial>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <mass value="0.1"/>
@@ -439,20 +439,29 @@
   </link>
 
   <joint name="kinect_joint" type="fixed">
-    <origin xyz="0.28 0.0 0.01" rpy="0.0 0.0 0.0"/>
+    <origin xyz="0.24 0.0 0.452" rpy="0.0 0.0 0.0"/>
     <parent link="chassis_link"/>
-    <child link="kinect_link"/>
+    <child link="camera_link"/>
     <axis xyz="0.0 1 0.0"/>
   </joint>
 
 
   <joint name="camera_optical_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="-1.5707 0 -1.5707"/>
-    <parent link="kinect_link"/>
-    <child link="camera_link_optical"/>
+      <origin xyz="0 0 0" rpy="-1.5707 0 -1.5707"/>
+      <parent link="camera_link"/>
+      <child link="camera_depth_frame"/>
   </joint>
 
-  <link name="camera_link_optical">
+  <link name="camera_depth_frame">
   </link>
+
+  <!--joint name="camera_optical_joint2" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.5707 0 -1.5707"/>
+    <parent link="camera_depth_frame"/>
+    <child link="camera_depth_optical_frame"/>
+  </joint>
+
+  <link name="camera_depth_optical_frame">
+  </link-->
 
 </robot>

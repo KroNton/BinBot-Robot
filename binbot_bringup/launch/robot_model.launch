@@ -1,0 +1,86 @@
+<launch>   
+
+
+
+  <rosparam param="ticks_meter">1400</rosparam>
+  <rosparam param="base_width">0.4</rosparam>
+
+
+  <!--node pkg="rosserial_python" type="serial_node.py" name="rosserial_server_py">
+    <param name="port" value="/dev/ttyACM0" />
+    <param name="baud" value="57600" />
+
+  </node-->
+
+  <node pkg="rosserial_server" type="serial_node" name="rosserial_server">
+    <rosparam>
+      port: /dev/ttyACM0
+      require:
+        publishers: [ lwheel, rwheel ]
+        subscribers: [ lmotor_cmd, rmotor_cmd ]
+    </rosparam>
+  </node>
+  <node pkg="rosserial_python" type="message_info_service.py"
+        name="rosserial_message_info" />
+
+
+  <!--node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_key"/-->
+    
+
+  <node pkg="differential_drive_arduino" type="pid_velocity.py" name="lpid_velocity">
+      <remap from="wheel" to="lwheel"/>
+      <remap from="motor_cmd" to="lmotor_cmd"/>
+      <remap from="wheel_vtarget" to="lwheel_vtarget"/>
+      <remap from="wheel_vel" to="lwheel_vel"/>
+      <rosparam param="Kp">100</rosparam>
+      <rosparam param="Ki">0</rosparam>
+      <rosparam param="Kd">0</rosparam>
+      <rosparam param="out_min">-255</rosparam>
+      <rosparam param="out_max">255</rosparam>
+      <rosparam param="rate">30</rosparam>
+      <rosparam param="timeout_ticks">4</rosparam>
+      <rosparam param="rolling_pts">5</rosparam>
+  </node>
+  <node pkg="differential_drive_arduino" type="pid_velocity.py" name="rpid_velocity">
+      <remap from="wheel" to="rwheel"/>
+      <remap from="motor_cmd" to="rmotor_cmd"/>
+      <remap from="wheel_vtarget" to="rwheel_vtarget"/>
+      <remap from="wheel_vel" to="rwheel_vel"/>
+      <rosparam param="Kp">100</rosparam>
+      <rosparam param="Ki">0</rosparam>
+      <rosparam param="Kd">0</rosparam>
+      <rosparam param="out_min">-255</rosparam>
+      <rosparam param="out_max">255</rosparam>
+      <rosparam param="rate">30</rosparam>
+      <rosparam param="timeout_ticks">4</rosparam>
+      <rosparam param="rolling_pts">5</rosparam>
+  </node>
+  
+
+  <!--node pkg="differential_drive_arduino" type="virtual_joystick.py" name="virtual_joystick" output="screen"/-->
+  <node pkg="differential_drive_arduino" type="twist_to_motors.py" name="twist_to_motors" output="screen"/>
+  <node pkg="differential_drive_arduino" type="diff_tf.py" name="diff_tf" output="screen"/> 
+
+
+    
+  <param name="robot_description" textfile="$(find binbot_description)/urdf/binbot_robot.xacro" />
+   
+  <node pkg="rviz" type="rviz" name="rviz" output="screen" args="-d $(find binbot_bringup)/rviz/robot.rviz"/>
+
+  
+     <!--rosparam param="rate">1</rosparam-->
+  
+ 	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="5.0" />
+  </node>
+
+      <!--- Depth image to laser scan -->
+  <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan" >
+      <param name="scan_height" value="3"/> 
+      <param name="output_frame_id" value="camera_depth_frame"/>
+      <remap from="image" to="/camera/depth/image_rect" />
+  </node>
+
+</launch>

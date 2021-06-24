@@ -3,9 +3,6 @@
 <robot
     name="binbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find binbot_description)/urdf/binbot.gazebo"/>
-
-
   <link name="base_link"></link>
 
 
@@ -267,7 +264,7 @@
   </joint>
 
 
-  
+
   <link
     name="right_wheel">
     <inertial>
@@ -414,7 +411,7 @@
 
 
   <!--kinect_link-->
-  <link name="kinect_link">
+  <link name="camera_link">
       <inertial>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <mass value="0.1"/>
@@ -439,20 +436,20 @@
   </link>
 
   <joint name="kinect_joint" type="fixed">
-    <origin xyz="0.28 0.0 0.01" rpy="0.0 0.0 0.0"/>
+    <origin xyz="0.24 0.0 0.452" rpy="0.0 0.0 0.0"/>
     <parent link="chassis_link"/>
-    <child link="kinect_link"/>
+    <child link="camera_link"/>
     <axis xyz="0.0 1 0.0"/>
   </joint>
 
 
-  <joint name="camera_optical_joint" type="fixed">
+ <joint name="camera_optical_joint" type="fixed">
     <origin xyz="0 0 0" rpy="-1.5707 0 -1.5707"/>
-    <parent link="kinect_link"/>
-    <child link="camera_link_optical"/>
+    <parent link="camera_link"/>
+    <child link="camera_depth_frame"/>
   </joint>
 
-  <link name="camera_link_optical">
+   <link name="camera_depth_frame">
   </link>
 
 </robot>
