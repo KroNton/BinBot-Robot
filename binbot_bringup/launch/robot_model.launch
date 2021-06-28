@@ -2,8 +2,8 @@
 
 
 
-  <rosparam param="ticks_meter">1400</rosparam>
-  <rosparam param="base_width">0.4</rosparam>
+  <rosparam param="ticks_meter">710</rosparam>
+  <rosparam param="base_width">0.495</rosparam>
 
 
   <!--node pkg="rosserial_python" type="serial_node.py" name="rosserial_server_py">
@@ -32,8 +32,8 @@
       <remap from="motor_cmd" to="lmotor_cmd"/>
       <remap from="wheel_vtarget" to="lwheel_vtarget"/>
       <remap from="wheel_vel" to="lwheel_vel"/>
-      <rosparam param="Kp">100</rosparam>
-      <rosparam param="Ki">0</rosparam>
+      <rosparam param="Kp">80</rosparam>
+      <rosparam param="Ki">90</rosparam>
       <rosparam param="Kd">0</rosparam>
       <rosparam param="out_min">-255</rosparam>
       <rosparam param="out_max">255</rosparam>
@@ -46,8 +46,8 @@
       <remap from="motor_cmd" to="rmotor_cmd"/>
       <remap from="wheel_vtarget" to="rwheel_vtarget"/>
       <remap from="wheel_vel" to="rwheel_vel"/>
-      <rosparam param="Kp">100</rosparam>
-      <rosparam param="Ki">0</rosparam>
+      <rosparam param="Kp">80</rosparam>
+      <rosparam param="Ki">90</rosparam>
       <rosparam param="Kd">0</rosparam>
       <rosparam param="out_min">-255</rosparam>
       <rosparam param="out_max">255</rosparam>
@@ -75,6 +75,8 @@
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
     <param name="publish_frequency" type="double" value="5.0" />
   </node>
+
+  <node pkg="differential_drive_arduino" type="virtual_joystick.py" name="virtual_joystick" output="screen"/>
 
       <!--- Depth image to laser scan -->
   <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan" >
