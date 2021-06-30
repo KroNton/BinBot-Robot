@@ -76,7 +76,7 @@
     <param name="publish_frequency" type="double" value="5.0" />
   </node>
 
-  <node pkg="differential_drive_arduino" type="virtual_joystick.py" name="virtual_joystick" output="screen"/>
+  <!--node pkg="differential_drive_arduino" type="virtual_joystick.py" name="virtual_joystick" output="screen"/-->
 
       <!--- Depth image to laser scan -->
   <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan" >
