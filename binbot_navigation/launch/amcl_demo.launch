@@ -1,21 +1,23 @@
-<?xml version="1.0"?>
-
 <launch>
+  <!-- https://github.com/ros-planning/navigation/issues/206 -->
 
-  <!-- Run the map server -->
-  <arg name="map_file" default="$(find binbot_navigation)/maps/map.yaml"/>
+    <arg name="scan_topic" value="/scan" />
+  
+
+  <!-- Map server -->
+  <arg name="map_file" default="$(find binbot_navigation)/maps/bimy_map.yaml"/>
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
-  <!--- Run AMCL -->
-  <include file="$(find binbot_navigation)/launch/amcl.launch" />
+  <arg name="initial_pose_x" default="0.0"/> <!-- Use 17.0 for willow's map in simulation -->
+  <arg name="initial_pose_y" default="0.0"/> <!-- Use 17.0 for willow's map in simulation -->
+  <arg name="initial_pose_a" default="0.0"/>
+  <include file="$(find binbot_navigation)/launch/includes/amcl.launch.xml">
+    <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
+    <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+    <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
+  </include>
 
-  <!--- Run Move Base -->
-  <include file="$(find binbot_navigation)/launch/move_base.launch" />
-
-  <!--- Run Move Base -->
-  <include file="$(find binbot_navigation)/launch/view_navigation.launch" />
-
-  <!--- Run Move Base -->
-  <include file="$(find binbot_navigation)/launch/3dsensor_sim.launch" />
+  <include file="$(find binbot_navigation)/launch/includes/move_base.launch.xml"/>
 
 </launch>
+

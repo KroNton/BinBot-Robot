@@ -1,0 +1,6 @@
+<!--
+  Used for visualising the arlobot while building a map or navigating with the ros navistack.
+ -->
+<launch>
+    <node pkg="rviz" type="rviz" name="rviz" output="screen" args="-d $(find binbot_bringup)/rviz/robot.rviz"/>
+</launch>

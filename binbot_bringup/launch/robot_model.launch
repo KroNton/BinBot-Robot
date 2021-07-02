@@ -37,7 +37,7 @@
       <rosparam param="Kd">0</rosparam>
       <rosparam param="out_min">-255</rosparam>
       <rosparam param="out_max">255</rosparam>
-      <rosparam param="rate">30</rosparam>
+      <rosparam param="rate">5</rosparam>
       <rosparam param="timeout_ticks">4</rosparam>
       <rosparam param="rolling_pts">5</rosparam>
   </node>
@@ -51,7 +51,7 @@
       <rosparam param="Kd">0</rosparam>
       <rosparam param="out_min">-255</rosparam>
       <rosparam param="out_max">255</rosparam>
-      <rosparam param="rate">30</rosparam>
+      <rosparam param="rate">5</rosparam>
       <rosparam param="timeout_ticks">4</rosparam>
       <rosparam param="rolling_pts">5</rosparam>
   </node>
@@ -65,7 +65,7 @@
     
   <param name="robot_description" textfile="$(find binbot_description)/urdf/binbot_robot.xacro" />
    
-  <node pkg="rviz" type="rviz" name="rviz" output="screen" args="-d $(find binbot_bringup)/rviz/robot.rviz"/>
+  <!--node pkg="rviz" type="rviz" name="rviz" output="screen" args="-d $(find binbot_bringup)/rviz/robot.rviz"/-->
 
   
      <!--rosparam param="rate">1</rosparam-->
