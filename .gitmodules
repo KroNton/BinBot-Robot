@@ -1,0 +1,3 @@
+[submodule "binbot_description"]
+	path = binbot_description
+	url = https://github.com/KroNton/binbot_description
